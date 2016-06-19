@@ -1,0 +1,33 @@
+{
+  "name": "schmiddim/zf2-wishlist-importer",
+  "description": "n/a",
+  "type": "library",
+  "license": "BSD-3-Clause",
+  "homepage": "https://www.radikalblogger.de",
+  "keywords": [],
+  "authors": [
+    {
+      "name": "Michael Schmitt",
+      "email": "schmiddim@gmx.at",
+      "homepage": "https://www.radikalblogger.de",
+      "role": "Developer"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.3.3",
+    "zendframework/zendframework" : "~2.5",
+    "schmiddim/amazon-wish-lister":"dev-master"
+
+
+  },
+  "require-dev": {
+
+
+  },
+  "autoload": {
+    "psr-0": {
+      "Schmiddim\\": "src/"
+    }
+  }
+}
