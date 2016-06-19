@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Schmiddim\WishlistImporter\Controller\Factories;
+namespace Schmiddim\Amazon\WishlistImporter\Controller\Factories;
 use Schmiddim\WishlistImporter\Controller\CliController;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;

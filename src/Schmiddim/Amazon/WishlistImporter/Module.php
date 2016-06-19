@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Schmiddim\WishlistImporter;
+namespace Schmiddim\Amazon\WishlistImporter;
 
 
 use Zend\EventManager\EventInterface;

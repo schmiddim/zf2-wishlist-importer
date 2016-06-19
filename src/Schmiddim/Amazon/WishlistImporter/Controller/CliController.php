@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Schmiddim\WishlistImporter\Controller;
+namespace Schmiddim\Amazon\WishlistImporter\Controller;
 
 
 use Zend\Mvc\Controller\AbstractActionController;
