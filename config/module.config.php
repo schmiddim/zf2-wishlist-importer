@@ -1,6 +1,6 @@
 <?php
-use Schmiddim\WishlistImporter\Controller\Factories\CliControllerFactory;
-use Schmiddim\WishlistImporter\Controller\CliController;
+use Schmiddim\Amazon\WishlistImporter\Controller\Factories\CliControllerFactory;
+use Schmiddim\Amazon\WishlistImporter\Controller\CliController;
 
 return array(
 

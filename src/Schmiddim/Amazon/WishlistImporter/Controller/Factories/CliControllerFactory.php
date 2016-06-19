@@ -2,7 +2,8 @@
 
 
 namespace Schmiddim\Amazon\WishlistImporter\Controller\Factories;
-use Schmiddim\WishlistImporter\Controller\CliController;
+
+use Schmiddim\Amazon\WishlistImporter\Controller\CliController;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -22,7 +23,7 @@ class CliControllerFactory  implements FactoryInterface
          */
      #   $wishlistService = $container->getServiceLocator()->get(WishlistServiceInterface::class);
 
-        return new CliController();
+        return new  CliController();
     }
 
     public function createService(ServiceLocatorInterface $container)

@@ -13,5 +13,6 @@ class CliController extends AbstractActionController
     public function importAction()
     {
 
+        echo "do an import";
     }
 }
