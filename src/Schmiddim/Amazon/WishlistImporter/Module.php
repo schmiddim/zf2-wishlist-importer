@@ -57,7 +57,7 @@ class Module implements
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ ,
+                    __NAMESPACE__ => __DIR__,
                 ),
             ),
         );

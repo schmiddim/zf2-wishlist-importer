@@ -1,6 +1,8 @@
 <?php
 use Schmiddim\Amazon\WishlistImporter\Controller\Factories\CliControllerFactory;
 use Schmiddim\Amazon\WishlistImporter\Controller\CliController;
+use Schmiddim\Amazon\WishlistImporter\Services\SynchronizeDbAgainstAmazonInterface;
+use Schmiddim\Amazon\WishlistImporter\Factories\SynchronizeDbAgainstAmazonFactory;
 
 return array(
 
@@ -11,7 +13,11 @@ return array(
                 CliControllerFactory::class
         )
     ),
-
+    'service_manager' => array(
+        'factories' => array(
+            SynchronizeDbAgainstAmazonInterface::class => SynchronizeDbAgainstAmazonFactory::class
+        ),
+    ),
     'console' => array(
         'router' => array(
             'routes' => array(
