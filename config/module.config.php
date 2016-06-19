@@ -17,7 +17,7 @@ return array(
             'routes' => array(
                 'import-wishlist' => array(
                     'options' => array(
-                        'route' => 'importWishlist [-v] <id>',
+                        'route' => 'importWishlist  <id> <tld>',
                         'defaults' => array(
 
                             'controller' => CliController::class,

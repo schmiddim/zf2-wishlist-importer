@@ -11,6 +11,7 @@ use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Schmiddim\Amazon\Doctrine\Services\Wishlist\WishlistServiceInterface;
+use Schmiddim\Amazon\Doctrine\Services\Product\ProductServiceInterface;
 class CliControllerFactory implements FactoryInterface
 {
     public function __invoke(ControllerManager $container, $name, array
@@ -19,7 +20,7 @@ class CliControllerFactory implements FactoryInterface
         /**
          * @var $productService ProductServiceInterface
          */
-        #$productService = $container->getServiceLocator()->get(ProductServiceInterface::class);
+       $productService = $container->getServiceLocator()->get(ProductServiceInterface::class);
 
         /**
          * @var $wishlistService WishlistServiceInterface
@@ -39,7 +40,7 @@ class CliControllerFactory implements FactoryInterface
 
 
         $apaiIoWrapper = new ApaiIOWrapper($container->getServiceLocator());
-        return new  CliController($amazonCrawler, $wishlistService, $apaiIoWrapper);
+        return new  CliController($amazonCrawler, $wishlistService, $apaiIoWrapper, $productService);
     }
 
     public function createService(ServiceLocatorInterface $container)

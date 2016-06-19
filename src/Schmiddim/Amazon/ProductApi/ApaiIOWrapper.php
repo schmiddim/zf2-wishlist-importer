@@ -1,8 +1,10 @@
 <?php
 namespace Schmiddim\Amazon\ProductApi;
+
 use ApaiIO\ApaiIO;
 
 use ApaiIO\Configuration\GenericConfiguration;
+use GuzzleHttp\Client;
 use Zend\ServiceManager\ServiceManager;
 use ApaiIO\Operations\Lookup;
 
@@ -17,11 +19,13 @@ class ApaiIOWrapper
     {
 
         $apiConfig = $sl->get('config')['amazon-apai'];
+        $client = new Client();
         $this->configuration = new GenericConfiguration();
         $this->configuration
             ->setAccessKey($apiConfig['AWS_API_KEY'])
             ->setSecretKey($apiConfig['AWS_API_SECRET_KEY'])
-            ->setAssociateTag($apiConfig['AWS_ASSOCIATE_TAG']);
+            ->setAssociateTag($apiConfig['AWS_ASSOCIATE_TAG'])
+            ->setRequest(new \ApaiIO\Request\GuzzleRequest($client));
 
     }
 
