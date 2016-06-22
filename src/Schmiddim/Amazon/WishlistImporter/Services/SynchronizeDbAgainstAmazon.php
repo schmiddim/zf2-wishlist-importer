@@ -72,7 +72,10 @@ class SynchronizeDbAgainstAmazon implements SynchronizeDbAgainstAmazonInterface
         $wishList = $this->wishlistService->findByWishlistID($wishlistId);
         if (null === $wishList) {
             $wishList = new  Wishlist();
-            $wishList->setId($wishlistId);
+            $wishList->setName('IDK');
+            $wishList->setWishlistOwnerName('IDK');
+            $wishList->setAmazonId($wishlistId);
+            $wishList->setTld($countryCode);
             //@todo owner & so on
         }
         $wishList->setProducts($products);
