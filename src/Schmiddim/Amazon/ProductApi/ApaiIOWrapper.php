@@ -15,10 +15,15 @@ class ApaiIOWrapper
      */
     private $configuration = null;
 
-    public function __construct(ServiceManager $sl)
-    {
 
-        $apiConfig = $sl->get('config')['amazon-apai'];
+    protected $itemsNotFound = array();
+
+    /**
+     * ApaiIOWrapper constructor.
+     * @param array $apiConfig
+     */
+    public function __construct($apiConfig = array())
+    {
         $client = new Client();
         $this->configuration = new GenericConfiguration();
         $this->configuration
@@ -38,8 +43,9 @@ class ApaiIOWrapper
         $lookup->setItemId($asin);
         $lookup->setResponseGroup(array('Large')); // More detailed information
         $response = $apaiIO->runOperation($lookup);
+        $xmlResponse = simplexml_load_string($response);
 
-        return simplexml_load_string($response);
+        return $xmlResponse;
     }
 
     /**
@@ -65,6 +71,24 @@ class ApaiIOWrapper
                 $responses[] = $item;
             }
         }
+
+        //did we made faulty requests?
+        if (count($asins) !== count($responses)) {
+            $foundAsins = array();
+
+            foreach ($responses as $response) {
+                $asinFromResponse = strval($response->ASIN);
+                $foundAsins [] = $asinFromResponse;
+                $key = array_search($asinFromResponse, $asins);
+                unset($asins[$key]);
+            }
+        }
+
+        if (false == array_key_exists($countryCode, $this->itemsNotFound)) {
+            $this->itemsNotFound[$countryCode] = array();
+        }
+        $this->itemsNotFound[$countryCode] = array_merge($this->itemsNotFound[$countryCode], $asins);
+
         return $responses;
     }
 
@@ -85,7 +109,9 @@ class ApaiIOWrapper
         $lookup->setResponseGroup(array('Large')); // More detailed information
         $response = $apaiIO->runOperation($lookup);
 
-        return simplexml_load_string($response);
+        $xmlResponse = simplexml_load_string($response);
+        return $xmlResponse;
+
     }
 
     /**
@@ -94,6 +120,14 @@ class ApaiIOWrapper
     public function getConfiguration()
     {
         return $this->configuration;
+    }
+
+    /**
+     * @return array
+     */
+    public function getItemsNotFound()
+    {
+        return $this->itemsNotFound;
     }
 
 }

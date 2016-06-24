@@ -31,7 +31,6 @@ class SynchronizeDbAgainstAmazonFactory implements FactoryInterface
         $amazonCrawler = new AmazonCrawler($client, new NullLogger());
 
 
-        $apaiIoWrapper = new ApaiIOWrapper($container);
 
         //@todo zendify this shit!
         /*
@@ -43,8 +42,8 @@ class SynchronizeDbAgainstAmazonFactory implements FactoryInterface
         $client = new \GuzzleHttp\Client();
         $amazonCrawler = new AmazonCrawler($client, new NullLogger());
 
+        $apaiIoWrapper = new ApaiIOWrapper($container->get('config')['amazon-apai']);
 
-        $apaiIoWrapper = new ApaiIOWrapper($container);
 
 
         return new SynchronizeDbAgainstAmazon(
