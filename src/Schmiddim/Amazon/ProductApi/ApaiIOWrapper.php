@@ -36,11 +36,20 @@ class ApaiIOWrapper
 
     public function getByASIN($asin, $country)
     {
+        $this->getObjectBy($asin, $country);
+    }
+    public function getByISBN($isbn, $country)
+    {
+        $this->getObjectBy($isbn, $country, Lookup::TYPE_ISBN);
+    }
+    protected function getObjectBy($identifier, $country, $idType = Lookup::TYPE_ASIN)
+    {
         $this->getConfiguration()->setCountry($country);
 
         $apaiIO = new ApaiIO($this->getConfiguration());
         $lookup = new Lookup();
-        $lookup->setItemId($asin);
+        $lookup->setIdType($idType);
+        $lookup->setItemId($identifier);
         $lookup->setResponseGroup(array('Large')); // More detailed information
         $response = $apaiIO->runOperation($lookup);
         $xmlResponse = simplexml_load_string($response);
@@ -48,12 +57,23 @@ class ApaiIOWrapper
         return $xmlResponse;
     }
 
+    public function getByISBNS($isbns = array(), $countryCode)
+    {
+        return $this->getObjects($isbns, $countryCode, Lookup::TYPE_ISBN);
+
+    }
+
+    public function getByASINS($asins = array(), $countryCode)
+    {
+        return $this->getObjects($asins, $countryCode, Lookup::TYPE_ASIN);
+    }
+
     /**
      * @param array $asins
      * @param $countryCode
      * @return array
      */
-    public function getByASINS($asins = array(), $countryCode)
+    public function getObjects($asins = array(), $countryCode, $idType)
     {
         //We can request only 10 items at once:(
         $parts = array_chunk($asins, 10);
@@ -61,7 +81,7 @@ class ApaiIOWrapper
 
         //do the api requests
         foreach ($parts as $part) {
-            $resultSets[] = $this->fetchByASINs($part, $countryCode);
+            $resultSets[] = $this->fetchByASINs($part, $countryCode, $idType);
 
         }
         //merge the results
@@ -93,18 +113,19 @@ class ApaiIOWrapper
     }
 
     /**
-     * Make the api call
      * @param array $asins
      * @param $countryCode
+     * @param string $idType
      * @return \SimpleXMLElement
      * @throws \Exception
      */
-    protected function fetchByASINs($asins = array(), $countryCode)
+    protected function fetchByASINs($asins = array(), $countryCode, $idType = Lookup::TYPE_ASIN)
     {
         $this->getConfiguration()->setCountry($countryCode);
 
         $apaiIO = new ApaiIO($this->getConfiguration());
         $lookup = new Lookup();
+        $lookup->setIdType($idType);
         $lookup->setItemIds($asins);
         $lookup->setResponseGroup(array('Large')); // More detailed information
         $response = $apaiIO->runOperation($lookup);
