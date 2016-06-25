@@ -66,7 +66,9 @@ class SynchronizeDbAgainstAmazon implements SynchronizeDbAgainstAmazonInterface
 
         $apaiIoResultSet = $this->apaiIOWrapper->getByASINS($itemsToFetch, $item['tld']);
         foreach ($apaiIoResultSet as $itemDetails) {
-            $products[] = $this->productService->createProductByXml($itemDetails);
+            $product = $this->productService->createProductByXml($itemDetails);
+            $products[] = $product;
+            $this->productService->getEntityManager()->persist($product);
         }
 
         $wishList = $this->wishlistService->findByWishlistID($wishlistId);
@@ -78,6 +80,7 @@ class SynchronizeDbAgainstAmazon implements SynchronizeDbAgainstAmazonInterface
             $wishList->setTld($countryCode);
             //@todo owner & so on
         }
+
         $wishList->setProducts($products);
         $this->wishlistService->persistWishList($wishList);
         $this->wishlistService->getEntityManager()->flush();
