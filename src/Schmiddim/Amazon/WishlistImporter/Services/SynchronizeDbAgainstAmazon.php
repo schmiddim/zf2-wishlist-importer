@@ -87,12 +87,24 @@ class SynchronizeDbAgainstAmazon implements SynchronizeDbAgainstAmazonInterface
     }
 
     /**
+     * @deprecated
      * @return ApaiIOWrapper
      */
     public function getApaiIOWrapper()
     {
         return $this->apaiIOWrapper;
     }
+
+    /**
+     * @deprecated
+     * @return ProductServiceInterface
+     */
+    public function getProductService()
+    {
+        return $this->productService;
+    }
+
+
 
 
 

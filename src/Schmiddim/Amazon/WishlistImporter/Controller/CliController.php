@@ -5,6 +5,7 @@ namespace Schmiddim\Amazon\WishlistImporter\Controller;
 
 
 use AmazonWishlistExporter\Crawler\AmazonCrawler;
+use Schmiddim\Amazon\Doctrine\Entities\Product;
 use Schmiddim\Amazon\Doctrine\Entities\Wishlist;
 use Schmiddim\Amazon\Doctrine\Services\Product\ProductServiceInterface;
 use Schmiddim\Amazon\Doctrine\Services\Wishlist\WishlistServiceInterface;
@@ -45,7 +46,14 @@ class CliController extends AbstractActionController
         /** @var  $apaiIO  ApaiIOWrapper */
         $apaiIO = $this->synchronize->getApaiIOWrapper();
 
-     $response =   $apaiIO->getByASIN($asin, $countryCode);
-        print_r($response);
+        $response = $apaiIO->getByASIN($asin, $countryCode);
+
+
+        $product = new Product();
+        $product->setByResponseObject($response->Items->Item);
+        /** @var  $ps  ProductServiceInterface */
+        $ps = $this->synchronize->getProductService();
+        $ps->getEntityManager()->persist($product);
+        $ps->getEntityManager()->flush();
     }
 }
