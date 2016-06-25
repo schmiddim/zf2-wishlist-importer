@@ -36,11 +36,11 @@ class ApaiIOWrapper
 
     public function getByASIN($asin, $country)
     {
-        $this->getObjectBy($asin, $country);
+        return $this->getObjectBy($asin, $country);
     }
     public function getByISBN($isbn, $country)
     {
-        $this->getObjectBy($isbn, $country, Lookup::TYPE_ISBN);
+        return $this->getObjectBy($isbn, $country, Lookup::TYPE_ISBN);
     }
     protected function getObjectBy($identifier, $country, $idType = Lookup::TYPE_ASIN)
     {

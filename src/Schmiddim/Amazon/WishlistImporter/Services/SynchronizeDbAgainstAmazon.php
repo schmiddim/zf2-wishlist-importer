@@ -86,4 +86,14 @@ class SynchronizeDbAgainstAmazon implements SynchronizeDbAgainstAmazonInterface
         $this->wishlistService->getEntityManager()->flush();
     }
 
+    /**
+     * @return ApaiIOWrapper
+     */
+    public function getApaiIOWrapper()
+    {
+        return $this->apaiIOWrapper;
+    }
+
+
+
 }

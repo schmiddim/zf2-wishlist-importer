@@ -25,9 +25,18 @@ return array(
                     'options' => array(
                         'route' => 'importWishlist  <id> <tld>',
                         'defaults' => array(
-
                             'controller' => CliController::class,
                             'action' => 'import'
+                        ),
+                    ),
+                ),
+
+                'ask-api' => array(
+                    'options' => array(
+                        'route' => 'ask-api  <id> <tld>',
+                        'defaults' => array(
+                            'controller' => CliController::class,
+                            'action' => 'askApi'
                         ),
                     ),
                 ),

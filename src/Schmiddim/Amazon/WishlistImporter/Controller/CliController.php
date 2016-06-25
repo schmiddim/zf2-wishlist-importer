@@ -37,4 +37,15 @@ class CliController extends AbstractActionController
         $this->synchronize->synchronize($wishlistId, $countryCode);
 
     }
+
+    public function askApiAction()
+    {
+        $asin = $this->getRequest()->getParam('id');
+        $countryCode = strtoupper($this->getRequest()->getParam('tld'));
+        /** @var  $apaiIO  ApaiIOWrapper */
+        $apaiIO = $this->synchronize->getApaiIOWrapper();
+
+     $response =   $apaiIO->getByASIN($asin, $countryCode);
+        print_r($response);
+    }
 }
