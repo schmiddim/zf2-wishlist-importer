@@ -64,6 +64,10 @@ class SynchronizeDbAgainstAmazon implements SynchronizeDbAgainstAmazonInterface
 
         }
 
+        if(0 === count($items)) {
+            echo 'no products found' .PHP_EOL;
+            return;
+        }
         $apaiIoResultSet = $this->apaiIOWrapper->getByASINS($itemsToFetch, $item['tld']);
         foreach ($apaiIoResultSet as $itemDetails) {
             $product = $this->productService->createProductByXml($itemDetails);
