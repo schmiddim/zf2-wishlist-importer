@@ -40,6 +40,15 @@ return array(
                         ),
                     ),
                 ),
+                'ask-api-isbn' => array(
+                    'options' => array(
+                        'route' => 'ask-api-isbn  <id> <tld>',
+                        'defaults' => array(
+                            'controller' => CliController::class,
+                            'action' => 'askApiByISBN'
+                        ),
+                    ),
+                ),
             )
         )
     )

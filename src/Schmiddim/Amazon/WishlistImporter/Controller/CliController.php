@@ -39,6 +39,16 @@ class CliController extends AbstractActionController
 
     }
 
+    public function askApiByISBNAction()
+    {
+        $isbn = $this->getRequest()->getParam('id');
+        $countryCode = strtoupper($this->getRequest()->getParam('tld'));
+        /** @var  $apaiIO  ApaiIOWrapper */
+        $apaiIO = $this->synchronize->getApaiIOWrapper();
+        $result = $apaiIO->getByISBN($isbn, $countryCode);
+
+    }
+
     public function askApiAction()
     {
         $asin = $this->getRequest()->getParam('id');
