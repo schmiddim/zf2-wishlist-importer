@@ -103,7 +103,7 @@ class ApaiIOWrapper
                 unset($asins[$key]);
             }
         }
-
+//@todo this does not work well with isbns
         if (false == array_key_exists($countryCode, $this->itemsNotFound)) {
             $this->itemsNotFound[$countryCode] = array();
         }
